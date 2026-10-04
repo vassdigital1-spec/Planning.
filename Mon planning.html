@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Mon planning</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap">
+<style>
+:root{--b:#1E6FD9;--g:#1FA463;--ink:#14233a;--mut:#667790;--line:#e3eaf3;--bg2:#f3f7fc;--red:#d64545;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:#fff;color:var(--ink);font:400 16px/1.45 "Plus Jakarta Sans",system-ui,sans-serif;padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:#fff;z-index:5;padding:14px 18px 10px;border-bottom:1px solid var(--line)}
+header h1{margin:0;font-size:24px;font-weight:800;color:var(--b)}
+header small{color:var(--mut);text-transform:capitalize}
+main{max-width:640px;margin:0 auto;padding:14px 16px}
+h2{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);margin:22px 0 8px}
+.sum{background:linear-gradient(135deg,var(--b),#2b8be6);color:#fff;border-radius:18px;padding:18px}
+.sum b{font-size:30px;display:block;line-height:1.1}
+.bar{height:8px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--g);border-radius:9px;transition:width .3s}
+.sum .bar{background:rgba(255,255,255,.3)}
+.card{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:10px}
+.card:active{background:var(--bg2)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.nm{font-weight:800;font-size:17px}
+.mt{color:var(--mut);font-size:13px}
+.chip{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:600;border:1.5px solid var(--b);color:var(--b)}
+.chip.s1{border-color:var(--g);color:var(--g)}.chip.s2{background:var(--b);color:#fff}.chip.s3{background:var(--g);border-color:var(--g);color:#fff}
+.fl{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.fl button{flex:none;min-height:40px;padding:0 16px;border-radius:99px;border:2px solid var(--line);font-weight:600}
+.fl .on{background:var(--b);border-color:var(--b);color:#fff}
+.tr{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.ck{flex:none;width:36px;height:36px;border-radius:50%;border:2.5px solid var(--b);color:#fff;font-weight:800;display:grid;place-items:center}
+.dn .ck{background:var(--g);border-color:var(--g)}.dn .tt{text-decoration:line-through;color:var(--mut)}
+.tb{flex:1;min-width:0;cursor:pointer}.tt{font-weight:600}.ts{font-size:13px;color:var(--mut)}.od{color:var(--red);font-weight:600}
+.bell{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--bg2)}
+.emp{text-align:center;color:var(--mut);padding:30px 10px}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav button{flex:1;min-height:60px;font-size:12px;font-weight:600;color:var(--mut);display:grid;place-items:center;align-content:center}
+nav button span{font-size:22px}nav .on{color:var(--b)}
+.fab{position:fixed;right:18px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;background:var(--g);color:#fff;font-size:32px;box-shadow:0 6px 16px rgba(20,35,58,.3);z-index:7}
+.m{position:fixed;inset:0;background:rgba(20,35,58,.5);z-index:20;display:none;align-items:flex-end;justify-content:center}.m.on{display:flex}
+.sh{background:#fff;width:100%;max-width:560px;max-height:90vh;overflow:auto;border-radius:22px 22px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom,0px))}
+.sh h3{margin:0 0 6px;font-size:20px;color:var(--b)}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
+input[type=text],input[type=date],select,textarea{width:100%;min-height:48px;border:2px solid var(--line);border-radius:12px;padding:8px 12px;background:#fff}
+textarea{min-height:140px;font-size:13px}
+.ck2{display:flex;align-items:center;gap:10px;margin-top:14px;font-weight:600}.ck2 input{width:22px;height:22px;accent-color:var(--b)}
+.bt{width:100%;min-height:52px;border-radius:14px;background:var(--b);color:#fff;font-weight:800;margin-top:18px}
+.bt.g{background:var(--g)}.bt.o{background:#fff;color:var(--b);border:2px solid var(--b)}.bt.d{background:#fff;color:var(--red);border:2px solid var(--line)}
+.back{color:var(--b);font-weight:600;min-height:44px}
+</style>
+</head>
+<body>
+<header><h1>Mon planning</h1><small id="dt"></small></header>
+<main id="app"></main>
+<button class="fab" id="fab" data-a="fab" aria-label="Ajouter">+</button>
+<nav><button data-a="tab" data-v="today"><span>📅</span>Aujourd'hui</button><button data-a="tab" data-v="proj"><span>📁</span>Projets</button><button data-a="tab" data-v="save"><span>💾</span>Sauvegarde</button></nav>
+<div class="m" id="m"><div class="sh" id="sh"></div></div>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var ST=['À planifier','À venir','En cours','Terminé'],V='today',NOTE=[],FLT=-1,CUR=null,S={p:[]};
+try{var d=JSON.parse(localStorage.getItem('plan_v1'));if(d&&d.p)S=d}catch(e){}
+function mig(){if(S.v>=2)return;S.p.forEach(function(p){p.st=p.st===0?(p.tasks.length?1:0):p.st+1});S.v=2}
+mig();
+function save(){try{localStorage.setItem('plan_v1',JSON.stringify(S))}catch(e){}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+var TD=iso(new Date());
+function dd(s){return Math.round((new Date(s+'T00:00:00')-new Date(TD+'T00:00:00'))/864e5)}
+function lab(s){var n=dd(s);if(n<0)return 'En retard de '+(-n)+' j';if(n===0)return "Aujourd'hui";if(n===1)return 'Demain';return new Date(s+'T00:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}
+function dl(s){var n=dd(s);if(n===0)return "aujourd'hui";if(n===1)return 'demain';if(n>1&&n<=14)return 'dans '+n+' j';return new Date(s+'T00:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}
+function auto(){var c=[];S.p.forEach(function(p){if(p.st<2&&p.start&&dd(p.start)<=0){p.st=2;c.push(p.name)}});if(c.length){NOTE=c;save()}}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function pct(p){return p.tasks.length?Math.round(p.tasks.filter(function(t){return t.done}).length*100/p.tasks.length):0}
+function gp(id){return S.p.filter(function(p){return p.id===id})[0]}
+function cal(p,t){var a=t.due.replace(/-/g,''),n=new Date(t.due+'T00:00:00');n.setDate(n.getDate()+1);
+ return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(t.t+' ('+p.name+')')+'&dates='+a+'/'+iso(n).replace(/-/g,'')}
+function trow(p,t){var o=!t.done&&t.due&&dd(t.due)<0,k=' data-p="'+p.id+'" data-t="'+t.id+'"';
+ return '<div class="tr'+(t.done?' dn':'')+'"><button class="ck" data-a="tg"'+k+' aria-label="Cocher">'+(t.done?'✓':'')+'</button><div class="tb" data-a="et"'+k+'><div class="tt">'+(t.imp?'★ ':'')+esc(t.t)+'</div><div class="ts'+(o?' od':'')+'">'+esc(p.name)+(t.due?' • '+(t.done?new Date(t.due+'T00:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short'}):lab(t.due)):'')+'</div></div>'+(t.due&&!t.done?'<a class="bell" href="'+cal(p,t)+'" target="_blank" rel="noopener" aria-label="Ajouter un rappel au calendrier">🔔</a>':'')+'</div>'}
+function pcard(p){var n=pct(p);return '<button class="card" data-a="op" data-p="'+p.id+'"><div class="row"><span class="nm">'+esc(p.name)+'</span><span class="chip s'+p.st+'">'+ST[p.st]+'</span></div><div class="mt">'+esc(p.cat||'Sans catégorie')+(p.start?' • Début : '+dl(p.start):'')+(p.due?' • Délai : '+lab(p.due):'')+'</div><div class="bar"><i style="width:'+n+'%"></i></div><div class="mt">'+(p.tasks.length?n+' % • '+p.tasks.filter(function(t){return t.done}).length+'/'+p.tasks.length+' tâches':(p.st===0?'Idée enregistrée : planifiez-la quand vous serez prêt':'Aucune tâche planifiée : ouvrez le projet pour en ajouter'))+'</div></button>'}
+function vToday(){var L=[],tot=0,dn=0;
+ S.p.forEach(function(p){if(p.st!==2)return;p.tasks.forEach(function(t){tot++;if(t.done)dn++;else L.push([p,t])})});
+ var by=function(f){return L.filter(function(x){return x[1].due&&f(dd(x[1].due))})},sec=function(h,a){return a.length?'<h2>'+h+' ('+a.length+')</h2>'+a.map(function(x){return trow(x[0],x[1])}).join(''):''};
+ var late=by(function(n){return n<0}),tod=by(function(n){return n===0}),wk=by(function(n){return n>0&&n<=7}),nd=L.filter(function(x){return !x[1].due});
+ var h=(NOTE.length?'<div class="sum" style="background:var(--g);margin-bottom:12px">▶ Démarrage automatique : '+NOTE.map(esc).join(', ')+'</div>':'')+'<div class="sum"><b>'+(late.length+tod.length)+' à traiter</b>'+late.length+' en retard • '+tod.length+' pour aujourd\'hui<div class="bar"><i style="width:'+(tot?Math.round(dn*100/tot):0)+'%"></i></div>Avancement des projets en cours : '+(tot?Math.round(dn*100/tot):0)+' %</div>';
+ h+=sec('En retard',late)+sec("Aujourd'hui",tod)+sec('Cette semaine',wk)+sec('Sans date',nd);
+ var pn=S.p.filter(function(q){return q.st===1}),pi=S.p.filter(function(q){return q.st===0});
+ if(!L.length&&(pn.length||pi.length))h+='<h2>Prêt à démarrer ?</h2>'+pn.map(function(q){return '<div class="card"><div class="row"><span class="nm">'+esc(q.name)+'</span><span class="chip s1">À venir</span></div><div class="mt">'+esc(q.cat||'Sans catégorie')+' • '+q.tasks.length+' tâche'+(q.tasks.length>1?'s':'')+' prévue'+(q.tasks.length>1?'s':'')+'</div><button class="bt" style="margin-top:12px" data-a="sp" data-p="'+q.id+'" data-s="2">▶ Démarrer ce projet</button></div>'}).join('')+pi.map(function(q){return '<div class="card"><div class="row"><span class="nm">'+esc(q.name)+'</span><span class="chip s0">À planifier</span></div><div class="mt">'+esc(q.cat||'Sans catégorie')+'</div><button class="bt o" style="margin-top:12px" data-a="pp" data-p="'+q.id+'">📝 Planifier ce projet</button></div>'}).join('');
+ if(L.length&&(pn.length||pi.length))h+='<p class="mt" style="margin-top:18px">Vos projets « À planifier » et « À venir » réapparaissent ici quand vos tâches en cours sont terminées.</p>';
+ if(!L.length&&!pn.length&&!pi.length)h+='<div class="emp">Rien à faire pour l\'instant.<br>Créez un projet et ajoutez-y des tâches avec le bouton +.</div>';
+ return h}
+function vProj(){var F=['Tous'].concat(ST),h='<div class="fl">'+F.map(function(f,i){return '<button data-a="ft" data-i="'+(i-1)+'" class="'+(FLT===i-1?'on':'')+'">'+f+'</button>'}).join('')+'</div><h2 style="margin-top:14px">'+(FLT<0?'Tous les projets':ST[FLT])+'</h2>';
+ var a=S.p.filter(function(p){return FLT<0||p.st===FLT});
+ return h+(a.length?a.map(pcard).join(''):'<div class="emp">Aucun projet ici.<br>Touchez + pour en créer un.</div>')}
+function vDet(){var p=gp(CUR);if(!p){V='proj';return vProj()}
+ var o=p.tasks.filter(function(t){return !t.done}),d=p.tasks.filter(function(t){return t.done}),n=pct(p),k=' data-p="'+p.id+'"',bt=function(c,s,l){return '<button class="bt '+c+'" data-a="sp"'+k+' data-s="'+s+'">'+l+'</button>'};
+ var act=p.st===0?'<button class="bt" data-a="pp"'+k+'>📝 Planifier ce projet</button>':p.st===1?bt('','2','▶ Démarrer ce projet'):p.st===2?(p.tasks.length&&!o.length?bt('g','3','🎉 Tout est fait : marquer le projet terminé'):bt('o','3','✓ Marquer comme terminé')):bt('o','2','Rouvrir le projet');
+ var h='<button class="back" data-a="bk">← Projets</button><div class="row"><span class="nm" style="font-size:22px">'+esc(p.name)+'</span><span class="chip s'+p.st+'">'+ST[p.st]+'</span></div><div class="mt">'+esc(p.cat||'')+(p.start?' • Début : '+dl(p.start):'')+(p.due?' • Délai : '+lab(p.due):'')+'</div>'+(p.notes?'<p>'+esc(p.notes)+'</p>':'');
+ if(p.tasks.length)h+='<div class="bar"><i style="width:'+n+'%"></i></div><div class="mt">'+n+' % terminé</div>';
+ h+=act+'<button class="bt o" data-a="ep"'+k+'>Modifier le projet</button>';
+ if(p.st===0&&!p.tasks.length)return h+'<p class="mt" style="margin-top:14px">Idée enregistrée, sans tâche pour l\'instant. Touchez « Planifier ce projet » quand vous serez prêt à définir les tâches.</p>';
+ if(p.st>0)h+='<button class="bt g" data-a="nt"'+k+'>+ Ajouter une tâche</button>';
+ h+='<h2>À faire ('+o.length+')</h2>'+(o.map(function(t){return trow(p,t)}).join('')||'<div class="emp">Aucune tâche. Touchez + pour en ajouter.</div>');
+ if(o.length)h+='<p class="mt">Touchez le rond à gauche d\'une tâche pour la marquer terminée.</p>';
+ if(d.length)h+='<h2>Terminées ('+d.length+')</h2>'+d.map(function(t){return trow(p,t)}).join('');
+ return h}
+function vSave(){return '<h2 style="margin-top:6px">Sauvegarde</h2><p class="mt">Vos données sont gardées dans ce navigateur. Copiez ce texte et gardez-le (WhatsApp, notes) pour pouvoir tout restaurer.</p><textarea id="bk" readonly>'+esc(JSON.stringify(S))+'</textarea><button class="bt g" data-a="cp">Copier la sauvegarde</button><h2>Restaurer</h2><textarea id="rs" placeholder="Collez ici une sauvegarde"></textarea><button class="bt o" data-a="rs">Restaurer</button><p class="mt" id="sm"></p>'}
+function render(){
+ TD=iso(new Date());auto();
+ $('dt').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+ $('app').innerHTML=V==='today'?vToday():V==='proj'?vProj():V==='det'?vDet():vSave();
+ document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===(V==='det'?'proj':V))});
+ $('fab').hidden=V==='save'||(V==='det'&&gp(CUR)&&gp(CUR).st===0)}
+function modal(h){$('sh').innerHTML=h;$('m').classList.add('on')}
+function shut(){$('m').classList.remove('on')}
+function fP(p){p=p||{};return '<h3>'+(p.id?'Modifier le projet':'Nouveau projet')+'</h3><form data-f="p"><input type="hidden" name="id" value="'+(p.id||'')+'"><label for="f1">Nom du projet</label><input type="text" id="f1" name="name" required value="'+esc(p.name)+'"><label for="f2">Catégorie</label><input type="text" id="f2" name="cat" list="cats" placeholder="Site web, TikTok, Formation..." value="'+esc(p.cat)+'"><datalist id="cats"><option value="Campus France"><option value="Site web"><option value="Application"><option value="Réseaux sociaux"><option value="Formation"><option value="Personnel"></datalist><label for="f3">Statut</label><select id="f3" name="st">'+ST.map(function(s,i){return '<option value="'+i+'"'+((p.st==null?0:p.st)===i?' selected':'')+'>'+s+'</option>'}).join('')+'</select><label for="f6">Date de début (facultatif)</label><input type="date" id="f6" name="start" value="'+esc(p.start)+'"><div class="mt">À cette date, le projet passe tout seul en « En cours ».</div><label for="f4">Délai final (facultatif)</label><input type="date" id="f4" name="due" value="'+esc(p.due)+'"><label for="f5">Notes</label><input type="text" id="f5" name="notes" value="'+esc(p.notes)+'"><button class="bt" type="submit">Enregistrer</button>'+(p.id?'<button class="bt d" type="button" data-a="dp" data-p="'+p.id+'">Supprimer le projet</button>':'')+'<button class="bt o" type="button" data-a="x">Annuler</button></form>'}
+function fT(pid,t){t=t||{};var ps=S.p.filter(function(p){return p.st===1||p.st===2||p.id===pid});
+ return '<h3>'+(t.id?'Modifier la tâche':'Nouvelle tâche')+'</h3><form data-f="t"><input type="hidden" name="tid" value="'+(t.id||'')+'"><label for="g1">Tâche</label><input type="text" id="g1" name="t" required value="'+esc(t.t)+'"><label for="g2">Projet</label><select id="g2" name="pid">'+ps.map(function(p){return '<option value="'+p.id+'"'+(p.id===pid?' selected':'')+'>'+esc(p.name)+'</option>'}).join('')+'</select><label for="g3">Date limite (facultatif)</label><input type="date" id="g3" name="due" value="'+esc(t.due)+'"><label class="ck2"><input type="checkbox" name="imp"'+(t.imp?' checked':'')+'> Important ★</label><button class="bt" type="submit" value="ok">Enregistrer</button>'+(t.id?'':'<button class="bt g" type="submit" value="more">Enregistrer et ajouter une autre</button>')+(t.id?'<button class="bt d" type="button" data-a="dt" data-p="'+pid+'" data-t="'+t.id+'">Supprimer la tâche</button>':'')+'<button class="bt o" type="button" data-a="x">Annuler</button></form>'}
+document.addEventListener('submit',function(e){e.preventDefault();var f=e.target,v=Object.fromEntries(new FormData(f).entries());
+ if(f.dataset.f==='p'){var p=v.id?gp(v.id):null;if(!p){p={id:uid(),tasks:[]};S.p.unshift(p)}p.name=v.name.trim();p.cat=v.cat.trim();p.st=+v.st;p.due=v.due;p.start=v.start;p.notes=v.notes.trim();if(V==='det')CUR=p.id}
+ else{var t,pr=gp(v.pid);if(v.tid){S.p.forEach(function(q){q.tasks=q.tasks.filter(function(x){if(x.id===v.tid){t=x;return false}return true})})}
+  t=t||{id:uid(),done:false};t.t=v.t.trim();t.due=v.due;t.imp=!!v.imp;pr.tasks.push(t);if(pr.st===0)pr.st=1}
+ save();
+ if(f.dataset.f==='t'&&e.submitter&&e.submitter.value==='more'){render();modal(fT(v.pid));return}
+ if(f.dataset.f==='p'&&!v.id){V='det';CUR=S.p[0].id;shut();render();window.scrollTo(0,0);if(S.p[0].st>0)modal(fT(CUR));return}
+ shut();render()});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b)return;var a=b.dataset.a,p=b.dataset.p?gp(b.dataset.p):null,t=p&&b.dataset.t?p.tasks.filter(function(x){return x.id===b.dataset.t})[0]:null;
+ if(a==='tab'){NOTE=[];V=b.dataset.v;render();window.scrollTo(0,0)}
+ else if(a==='fab'){var el=S.p.filter(function(q){return q.st===1||q.st===2});if(V==='proj'||!el.length)modal(fP());else modal(fT(V==='det'?CUR:(el.filter(function(q){return q.st===2})[0]||el[0]).id))}
+ else if(a==='op'){NOTE=[];CUR=p.id;V='det';render();window.scrollTo(0,0)}
+ else if(a==='bk'){V='proj';render()}
+ else if(a==='ft'){FLT=+b.dataset.i;render()}
+ else if(a==='tg'){t.done=!t.done;save();render()}
+ else if(a==='et')modal(fT(p.id,t));
+ else if(a==='ep')modal(fP(p));
+ else if(a==='nt')modal(fT(p.id));
+ else if(a==='sp'){p.st=+b.dataset.s;save();render()}
+ else if(a==='pp'){CUR=p.id;V='det';render();window.scrollTo(0,0);modal(fT(p.id))}
+ else if(a==='x')shut();
+ else if(a==='dp'){if(confirm('Supprimer ce projet et ses tâches ?')){S.p=S.p.filter(function(q){return q!==p});save();shut();V='proj';render()}}
+ else if(a==='dt'){p.tasks=p.tasks.filter(function(x){return x!==t});save();shut();render()}
+ else if(a==='cp'){var ta=$('bk');ta.select();try{navigator.clipboard.writeText(ta.value)}catch(x){document.execCommand('copy')}$('sm').textContent='Sauvegarde copiée.'}
+ else if(a==='rs'){try{var d=JSON.parse($('rs').value);if(!d.p)throw 0;S=d;mig();save();V='today';render()}catch(x){$('sm').textContent='Texte invalide : collez la sauvegarde complète.'}}});
+$('m').addEventListener('click',function(e){if(e.target===this)shut()});
+render();
+document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
+</script>
+</body>
+</html>
